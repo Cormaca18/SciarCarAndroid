@@ -61,10 +61,20 @@ public class PotentialMatchesActivity extends AppCompatActivity {
                     @Override
                     protected void onResponse(int status, JSONObject message){
 
+                        JSONArray result = null;
                         String matchId = "";
+                        String tripId1= "";
+                        String tripId2 = "";
+                        String meetingPlace = "";
+
 
                         try {
-                            matchId = message.getString("match");
+                            result = message.getJSONArray("result");
+                            matchId = String.valueOf(result.getString(0));
+                            tripId1 = String.valueOf(result.getString(1));
+                            tripId2 = String.valueOf(result.getString(2));
+                            meetingPlace = String.valueOf(result.getString(5));
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -72,7 +82,11 @@ public class PotentialMatchesActivity extends AppCompatActivity {
                         if(!matchId.equals("")){
 
                             Intent i = new Intent(getApplicationContext(), MatchActivity.class);
-                            i.putExtra("tripID", phoneTripId);
+                            i.putExtra("phoneTripID", phoneTripId);
+                            i.putExtra("matchID", matchId);
+                            i.putExtra("tripID1", tripId1);
+                            i.putExtra("tripID2", tripId2);
+                            i.putExtra("meetingPlace", meetingPlace);
                             startActivity(i);
 
                         }
