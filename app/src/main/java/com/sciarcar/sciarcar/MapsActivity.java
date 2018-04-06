@@ -75,7 +75,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //Display box displays for 4 times toast length seconds
         for (int i=0; i < 2; i++)
         {
-            Toast.makeText(getApplicationContext(), "Enter the time you want to leave, How much this time can vary, And the distance you would be willing to walk from your set location ", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Enter your time window, origin, destination and number of seats you need. ", Toast.LENGTH_LONG).show();
         }
 
         goButton = findViewById(R.id.go_button);

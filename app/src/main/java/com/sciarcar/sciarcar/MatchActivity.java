@@ -49,7 +49,7 @@ public class MatchActivity extends AppCompatActivity {
         noShow = findViewById(R.id.no_show);
 
 
-        meetingPlace.setText(sugMeetingPlace);
+        meetingPlace.setText("Maybe meet at "+sugMeetingPlace);
 
         cancelled.setOnClickListener(new View.OnClickListener() {
             @Override
