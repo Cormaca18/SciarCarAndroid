@@ -101,7 +101,7 @@ public class PotentialMatchesActivity extends AppCompatActivity {
         }, 0, 5000);
 
         getPotentialMatches = new Timer();
-
+        //refresh potential matches every 10 seconds
         getPotentialMatches.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -142,7 +142,7 @@ public class PotentialMatchesActivity extends AppCompatActivity {
                             }
 
                             if(trips != null){
-
+                                //loop through trips returned by the API and update variables
                                 for(int i = 0; i< trips.length(); i++){
 
                                     JSONObject trip = null;
@@ -200,7 +200,7 @@ public class PotentialMatchesActivity extends AppCompatActivity {
                                             e.printStackTrace();
                                         }
 
-                                        Log.d("greg", "updating list");
+                                        Log.d("done", "updating list");
                                         potentialMatches.add(new PotentialMatch(origin, dest, numSeats, tripId, checked, circle));
 
                                         that.runOnUiThread(new Runnable() {

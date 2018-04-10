@@ -72,12 +72,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        //Display box displays for 4 times toast length seconds
+        //Display box displays for 2 times toast length seconds
         for (int i=0; i < 2; i++)
         {
             Toast.makeText(getApplicationContext(), "Enter your time window, origin, destination and number of seats you need. ", Toast.LENGTH_LONG).show();
         }
-
+        //set buttons/boxes etc from acivity_maps.xml
         goButton = findViewById(R.id.go_button);
         startDepartTime = findViewById(R.id.start_depart_time);
         endDepartTime = findViewById(R.id.end_depart_time);
@@ -85,6 +85,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         final Activity that = this;
 
+        //pressing go buttom calls API to submit trip - includes checks for correct data
         goButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -157,7 +158,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             });
 
                         }
-
+                    //sendpost to url submit_trip with params of all data
                     }
 
                 }.sendPost("https://sciarcar.herokuapp.com/submitTrip", params);
@@ -166,35 +167,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        //associating objects to fragments so they can be manipulated
+        //associating objects to fragments in xml so they can be manipulated
         origin_search = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.origin_autocomplete_fragment);
 
         dest_search = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.destination_autocomplete_fragment);
 
-        //Solution for adding mins to end of give or take time
 
-        /*
-        timeRadius.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus) {
-                    String newStr = timeRadius.getText().toString();
-                    if(newStr.length() > 4) {
-                        if (!newStr.substring(newStr.length() - 5, newStr.length()).equals(" mins")) {
-                            timeRadius.setText(newStr + " mins");
-                        }
-                    }else{
-                        timeRadius.setText(newStr + " mins");
-                    }
-                }
-            }
-        });
-
-        */
-
-
-        //adding placeholder tect in searchbars
+        //adding placeholder text in searchbars
         origin_search.setHint("Enter Origin");
         dest_search.setHint("Enter Destination");
 
@@ -217,7 +198,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        //same as above for destoination
+        //same as above for destination
         dest_search.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(Place place) {
@@ -236,7 +217,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
     }
 
-    //handling callback after ASYNC loads maps
+    //default location for markers on map once loaded is Maynooth
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mapReady = true;
@@ -273,26 +254,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public void moveMap(){
-        //attempt at finding zoom value
-        /*
-        double lat1 = originCoords.latitude;
-        double lon1 = originCoords.longitude;
-
-        double lat2 = destCoords.latitude;
-        double lon2 = destCoords.longitude;
-
-        float zoom = 14;
-        double newLat = 0;
-        double newLon = 0;
-
-        newLat = (lat1+lat2)/2D;
-        newLon = (lon1+lon2)/2D;
-
-        double distance = Math.sqrt(Math.pow(lat1-lat2, 2) + Math.pow(lon1-lon2, 2));
-
-        zoom = (float)(3.5D/distance);
-        */
-        //working code for finding zoom value taking in co-ordinates. Will need to be adjusted so both markers are always visible
+        //code for finding zoom value taking in co-ordinates. Will need to be tweaked so both markers are always visible
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
         builder.include(destCoords);
         builder.include(originCoords);
@@ -302,7 +264,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.moveCamera( cu );
 
     }
-
+    //Get time stamp for trips start and end time
     public long getTimestampFromTime(String time){
 
         String date = new SimpleDateFormat("dd/MM/yyyy").format(new Date());

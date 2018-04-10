@@ -22,20 +22,21 @@ import java.util.List;
 import javax.net.ssl.HttpsURLConnection;
 
 /**
- * Created by Corma on 3/13/2018.
+ * Created by Cormac on 3/13/2018.
  */
 
+//Handling post requests through a different thread - the screen
 public class DataPoster {
 
     public DataPoster(){
 
     }
-
+    //onResponse is overridden by each screen each time it calls DataPoster.sendPost so the post request runs on a different thread for different scenarios
     protected void onResponse(int status, JSONObject message){
 
     }
 
-
+    //sendPost makes API call with url to API and json of parameters for the function
     public void sendPost(final String urlAddress, final List<AbstractMap.SimpleEntry<String, String>> params) {
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -85,7 +86,7 @@ public class DataPoster {
         thread.start();
     }
 
-
+    //Code from Stack to build key:value pairs to send in header of post request URL to the API
     private String getQuery(List<AbstractMap.SimpleEntry<String, String>> params) throws UnsupportedEncodingException
     {
         StringBuilder result = new StringBuilder();

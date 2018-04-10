@@ -23,10 +23,8 @@ import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Dennis on 14/03/2018.
- */
 
+//Adapter for making the potential matches listview look nicer and have them below each other
 public class PotentialMatchAdapter extends ArrayAdapter<PotentialMatch> {
 
     private ArrayList<PotentialMatch> dataSet;

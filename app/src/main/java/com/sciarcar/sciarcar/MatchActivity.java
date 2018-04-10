@@ -33,9 +33,10 @@ public class MatchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Create screen and declare variables
         setContentView(R.layout.activity_match);
 
-
+        //Need to add phone number of match to be take from DB upon match
         matchId = getIntent().getStringExtra("matchID");
         phoneTripId = getIntent().getStringExtra("phoneTripID");
         tripId1 = getIntent().getStringExtra("tripID1");
@@ -51,6 +52,7 @@ public class MatchActivity extends AppCompatActivity {
 
         meetingPlace.setText("Maybe meet at "+sugMeetingPlace);
 
+        //cancelled button triggers API call to change user DB row
         cancelled.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,7 +69,7 @@ public class MatchActivity extends AppCompatActivity {
 
             }
         });
-
+        //met button triggers API call to change user DB row for both users
         metMatch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,7 +86,7 @@ public class MatchActivity extends AppCompatActivity {
 
             }
         });
-
+        //no show button triggers API call to change user DB row for other user
         noShow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
